@@ -1,10 +1,11 @@
 #ifndef __DEFINE_H__
 #define __DEFINE_H__
 
-#include "stdio.h"
-#include "stdlib.h"
-#include "stdarg.h"
-#include "string.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <string.h>
+#include <stdbool.h>
 
 /* combine two symbol to one*/
 #define COMBINE_SYM(x,y)        x##y
@@ -36,11 +37,15 @@
 #define CS_ABS(x) (x)>=0?(x):(-x)
 
 /* redefine malloc function, thread safe */
-#define xx_malloc  malloc
-#define xx_free    free
+#define xx_malloc   malloc
+#define xx_free     free
+
+/* redefine bool type */
+#define xx_true     true
+#define xx_false    false
 
 /* redefine printf function */
-#define xx_printf  printf
+#define xx_printf   printf
 
 /* assert function */
 void cs_assert_handler(const unsigned char* ex_string, const char* func, int line);

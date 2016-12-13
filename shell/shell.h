@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-typedef struct cs_shell{
+typedef struct xx_shell{
     /* command */
     const char *cmd;
     
@@ -12,7 +12,7 @@ typedef struct cs_shell{
     
     /* point to the implementation of this command */
     void (* func)(uint32_t, int8_t **);
-}cs_shell_t;
+}xx_shell_t;
 
-extern void cmd_parse(uint8_t *data);
+extern uint8_t cmd_parse(uint8_t *data);
 #endif
