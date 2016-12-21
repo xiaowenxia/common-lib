@@ -43,6 +43,7 @@
 /* redefine bool type */
 #define xx_true     true
 #define xx_false    false
+#define xx_null     NULL
 
 /* redefine printf function */
 #define xx_printf   printf

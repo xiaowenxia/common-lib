@@ -1,24 +1,28 @@
-#include "../common/define.h"
 #include "shell.h"
 
 #define CMD_MAX_ARGS        16      /* max number of command args */
 #define CMD_MAX_LEN         256
-#define CHECK_ARGC(x)       if(argc != (x)){                    \
-                                xx_printf("argc must be %d",x); \
-                                return ;                        \
-                            }
 
-static void cmd_help(uint32_t argc, int8_t **argv);
-static void cmd_version(uint32_t argc, int8_t **argv);
-
-static xx_shell_t s_cmd_table[] =
+typedef struct shell_item
 {
-    { "help","      Display list of commands.", cmd_help},
-    { "h","         alias for help.", cmd_help},
-    { "?","         alias for help.", cmd_help},
-	{ "version","   show program version.", cmd_version},
-    { "v","         alias for version.", cmd_version}
+    const xx_shell_t *shell;
+    struct shell_item *next;
+}shell_list_t;
+
+static void shell_help(uint32_t argc, int8_t **argv);
+static void shell_version(uint32_t argc, int8_t **argv);
+
+static xx_shell_t s_shell_table[] =
+{
+    { "help","      Display list of commands.", shell_help},
+    { "h","         alias for help.", shell_help},
+    { "?","         alias for help.", shell_help},
+	{ "version","   show program version.", shell_version},
+    { "v","         alias for version.", shell_version}
 };
+
+static shell_list_t shell_list = {&s_shell_table[0],NULL};
+static shell_list_t *shell_list_tail = &shell_list;
 
 static int cmd_parse_argv(const int8_t *cmd, int8_t *argv[])
 {
@@ -79,6 +83,7 @@ static int cmd_parse_argv(const int8_t *cmd, int8_t *argv[])
     xx_printf("** Too many args (max. %d) **\n", CMD_MAX_ARGS);
     return (nargs);
 }
+
 uint8_t cmd_parse(uint8_t *data)
 {
     int8_t *argv[CMD_MAX_ARGS + 1] = {NULL};
@@ -94,25 +99,32 @@ uint8_t cmd_parse(uint8_t *data)
         xx_printf("commands must end of CR&LF\r\n");
         return xx_false;
     }
-        
     
     /* get the command parameter */
     memcpy(cmd_data, data, l_cmd_len - 2);
     argc = cmd_parse_argv(cmd_data, argv);
-    /* parse commands */
-    uint32_t i = 0;
-    for(i = 0; i < ARRAY_SIZE(s_cmd_table); i++)
+
+    if(argc == 0)
     {
-        if(!strcmp((char const *)argv[0], (char const *)s_cmd_table[i].cmd))
+        xx_printf("commands parse error\r\n");
+        return xx_false;
+    }
+
+    /* parse commands */
+    shell_list_t *p_shell_list = xx_null;
+
+    for(p_shell_list = &shell_list; p_shell_list != NULL; p_shell_list = p_shell_list->next)
+    {
+        if(!strcmp((char const *)argv[0], p_shell_list->shell->cmd))
         {
             /* run the callback function */
-            s_cmd_table[i].func(argc, argv);
+            p_shell_list->shell->func(argc, argv);
             break;
         }
     }
 
     /* command is unknown */
-    if(i == ARRAY_SIZE(s_cmd_table))
+    if(p_shell_list == NULL)
     {
         xx_printf("command is unknown\r\n");
         return xx_false;
@@ -121,22 +133,84 @@ uint8_t cmd_parse(uint8_t *data)
     return xx_true;
 }
 
-static void cmd_help(uint32_t argc, int8_t **argv)
+uint8_t cmd_register(xx_shell_t *shell)
 {
-    uint32_t i = 0;
-    CHECK_ARGC(1);
-    xx_printf("************************************************\r\n");
-    for(i = 0; i < ARRAY_SIZE(s_cmd_table); i++)
+    shell_list_t *new_shell = NULL;
+    shell_list_t *p_shell_list = &shell_list;
+    
+    if(shell == NULL)
     {
-        xx_printf("%s%s\r\n", s_cmd_table[i].cmd, s_cmd_table[i].help);
+        xx_printf("cmd_register failed,shell can not be null\r\n");
+        return xx_false;
     }
-    xx_printf("************************************************\r\n");
+    
+    /* cmd must not exist in list */
+    for(p_shell_list = &shell_list; p_shell_list != NULL; p_shell_list = p_shell_list->next)
+    {
+        if(!strcmp(p_shell_list->shell->cmd, shell->cmd))
+        {
+            xx_printf("command:[%s] is already in the shell_list\r\n", shell->cmd);
+            return xx_false;
+        }
+    }
+    new_shell = (shell_list_t *)xx_malloc(sizeof(shell_list_t));
+    
+    if(new_shell == NULL)
+    {
+        xx_printf("malloc failed\r\n");
+        return xx_false;
+    }
+    
+    /* insert shell to shell_list */
+    new_shell->shell = shell;
+    new_shell->next = NULL;
+    shell_list_tail->next = new_shell;
+    shell_list_tail = new_shell;
+    
+    return xx_true;
 }
 
-extern void talkie_project_show(void);
-extern uint8_t para_display(void);
+uint8_t cmd_register_array(xx_shell_t *shell, uint32_t array_size)
+{
+    xx_shell_t *p_shell = shell;
 
-static void cmd_version(uint32_t argc, int8_t **argv)
+    uint32_t i = 0;
+    for(i = 0; i < array_size; i++,p_shell++)
+    {
+        if(!cmd_register(p_shell))
+        {
+            /* register failed */
+            return xx_false;
+        }
+    }
+
+    return xx_true;
+}
+
+uint8_t cmd_init(void)
+{
+    shell_list.shell = &s_shell_table[0];
+    shell_list.next  = xx_null;
+    shell_list_tail  = &shell_list;
+
+    return cmd_register_array(&s_shell_table[1], ARRAY_SIZE(s_shell_table)-1);
+}
+
+static void shell_help(uint32_t argc, int8_t **argv)
+{
+    shell_list_t *p_shell_list = NULL;
+
+    CHECK_ARGC(1);
+    
+    xx_printf("*****************************************************\r\n");
+    for(p_shell_list = &shell_list; p_shell_list != NULL; p_shell_list = p_shell_list->next)
+    {
+        xx_printf("%s%s\r\n", p_shell_list->shell->cmd, p_shell_list->shell->help);
+    }
+    xx_printf("*****************************************************\r\n");
+}
+
+static void shell_version(uint32_t argc, int8_t **argv)
 {
     CHECK_ARGC(1);
     xx_printf("***************write by xiaxiaowen******************\r\n");
