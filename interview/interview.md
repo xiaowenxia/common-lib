@@ -65,15 +65,28 @@ const int* const pPoint = &nConstValue1;
 #### 把一个声明从右向左读。( * 读成 pointer to )
 ```c
 char * const cp;  // cp is a const pointer to char
-const char * p; // p is a pointer to const char;
-char const * p; // 同上,因为C++里面没有const*的运算符，所以const只能属于前面的类型。
+const char * p;   // p is a pointer to const char;
+char const * p;   // 同上,因为C++里面没有const*的运算符，所以const只能属于前面的类型。
 ```
 #### C++标准规定，const关键字放在类型或变量名之前等价的。
-```c
+
 结论：
-char * const cp     : 定义一个指向字符的指针常数，即const指针
-const char* p       : 定义一个指向字符常数的指针
-char const* p       : 等同于const char* p
-const   char   **是一个指向指针的指针，那个指针又指向一个字符串常量。   
-char   **也是一个指向指针的指针，那个指针又指向一个字符串变量。
+```c
+char * const cp     // 定义一个指向字符的指针常数，即const指针
+const char* p       // 定义一个指向字符常数的指针
+char const* p       // 等同于const char* p
+const char **       // 是一个指向指针的指针，那个指针又指向一个字符串常量。   
+char **             // 也是一个指向指针的指针，那个指针又指向一个字符串变量。
 ```
+
+|  数据类型      | 16位平台  | 32位平台 | 64位平台 |
+| -------------|:---------:|:------:|:------:|
+| char         | 1 字节     | 1 字节 |  1 字节 |
+| pointer      | 2 字节     | 4 字节 |  8 字节 |
+| short        | 2 字节     | 2 字节 |  2 字节 |
+| int          | 2 字节     | 4 字节 |  4 字节 |
+| float        | 4 字节     | 4 字节 | 41 字节 |
+| double       | 8 字节     | 8 字节 |  8 字节 |
+| long         | 4 字节     | 4 字节 |  8 字节 |
+| long long    | 8 字节     | 8 字节 |  8 字节 |
+
