@@ -9,6 +9,17 @@
 8. bash命令 shell makefile python github go javascript
 
 
+# volatile
+volatile 指出变量是随时可能发生变化的，每次使用它的时候必须从变量的地址中读取，因而编译器生成的汇编代码会重新从变量的地址读取数据。
+1. 并行设备的硬件寄存器，
+2. 一个中断服务子程序中会访问到的非自动变量（Non-automatic variables),可以使用关键区保护
+3. 多线程应用中被几个任务共享的变量，可以关闭系统调度
+
+# 函数指针
+```c
+int (*fun)(int a, int b); // 声明函数指针 
+```
+
 # const要点
 ## const T
 定义一个常量，声明的同时必须进行初始化。一旦声明，这个值将不能被改变。
