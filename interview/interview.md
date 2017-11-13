@@ -1,4 +1,4 @@
-#面试复习要点
+#要点
 1. c基础知识
 2. 数据结构（链表 hash表 排序算法 设计模式等）
 3. 外设（串口 网口 i2s i2c spi sdio等）
@@ -101,3 +101,17 @@ char **             // 也是一个指向指针的指针，那个指针又指向
 | long         | 4 字节     | 4 字节 |  8 字节 |
 | long long    | 8 字节     | 8 字节 |  8 字节 |
 
+## tcpip模型
+
+|  OSI模型      | linux tcpip模型  | 协议 |
+| -----------|:---------:|:------:|
+| 网络层      | 网络层     | telnet/DHCP/TFTP/FTP/MQTT |
+| 表示层      |           |   |
+| 会话层      |           |   |
+| 传输层      | 传输层     | TCP/UDP |
+| 网络层      | 网络层     | IP/ICMP/IGMP/ARP |
+| 数据链路层   | 物理层     | Ethernet/PPP/PPPoE/ |
+| 物理层      |           |   |
+
+## tcp协议
+![tcp协议图解](https://github.com/xiaowenxia/common-lib/blob/master/interview/tcp协议图解.jpg)
