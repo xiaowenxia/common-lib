@@ -103,15 +103,106 @@ char **             // 也是一个指向指针的指针，那个指针又指向
 
 ## tcpip模型
 
-|  OSI模型      | linux tcpip模型  | 协议 |
-| -----------|:---------:|:------:|
-| 网络层      | 网络层     | telnet/DHCP/TFTP/FTP/MQTT |
-| 表示层      |           |   |
-| 会话层      |           |   |
-| 传输层      | 传输层     | TCP/UDP |
-| 网络层      | 网络层     | IP/ICMP/IGMP/ARP |
-| 数据链路层   | 物理层     | Ethernet/PPP/PPPoE/ |
-| 物理层      |           |   |
+<table style="text-align:center">
+   <tr>
+      <td>OSI模型</td>
+      <td>linux tcpip模型</td>
+      <td>常用协议</td>
+      <td>网络设备</td>
+   </tr>
+   <tr>
+      <td>网络层</td>
+      <td rowspan="3">网络层</td>
+      <td rowspan="3">telnet/DHCP/TFTP/FTP/MQTT/NFS/DNS/FTP/SNMP</td>
+   </tr>
+   <tr>
+      <td>表示层</td>
+   </tr>
+   <tr>
+      <td>会话层</td>
+   </tr>
+   <tr>
+      <td>传输层</td>
+      <td>传输层</td>
+      <td>TCP/UDP</td>
+      <td>四层交换机</td>
+   </tr>
+   <tr>
+      <td>网络层</td>
+      <td>网络层</td>
+      <td>IP/ICMP/IGMP/ARP</td>
+      <td>路由器，三层交换机</td>
+   </tr>
+   <tr>
+      <td>数据链路层</td>
+      <td rowspan="2">网络接口层</td>
+      <td rowspan="2">Ethernet/PPP/PPPoE</td>
+      <td>交换机（二层交换机），网桥，网卡（一半物理层，一半链路层）</td>
+   </tr>
+   <tr>
+      <td>物理层</td>
+      <td>中继器、集线器</td>
+   </tr>
+</table>
 
+#### 以太网协议
+
+<table style="text-align:center">
+   <tr>
+      <td>前导码</td>
+      <td>SFD</td>
+      <td>目标地址</td>
+      <td>源地址</td>
+      <td>长度/类型</td>
+      <td>数据</td>
+      <td>CRC校验</td>
+   </tr>
+   <tr>
+      <td>7字节</td>
+      <td>1字节</td>
+      <td>6字节</td>
+      <td>6字节</td>
+      <td>2字节</td>
+      <td>46~1500字节</td>
+      <td>4字节</td>
+   </tr>
+</table>
+
+说明：
+1. <strong>前导码和SFD：</strong> 不能算是以太网数据帧，是以太网在物理层上发送以太网数据时添加上去的。
+2. <strong>长度/类型：</strong> 大于1518，表示该以太网帧中的数据属于哪个上层协议（0x0800:IP数据包；0x0806:ARP数据包）
+3. <strong>单播地址、组播地址：</strong> 第一个字节的bit0为0代表单播地址，为1代表组播地址。
+## ARP协议
+
+<table style="text-align:center">
+   <tr>
+      <td>以太网首部</td>
+      <td>硬件类型</td>
+      <td>协议类型</td>
+      <td>MAC地址长度</td>
+      <td>协议地址长度</td>
+      <td>OP</td>
+      <td>源MAC地址</td>
+      <td>源IP地址</td>
+      <td>目标MAC地址</td>
+      <td>目标IP地址</td>
+   </tr>
+   <tr>
+      <td>14字节</td>
+      <td>2字节</td>
+      <td>2字节</td>
+      <td>1字节</td>
+      <td>1字节</td>
+      <td>2字节</td>
+      <td>6字节</td>
+      <td>4字节</td>
+      <td>6字节</td>
+      <td>4字节</td>
+   </tr>
+</table>
+
+说明：
+1. <strong>MAC地址长度和IP地址长度：</strong> 分别为6和4.
+2. <strong>OP：</strong>ARP请求（值为1）、ARP应答（值为2）。
 ## tcp协议
 ![tcp协议图解](https://github.com/xiaowenxia/common-lib/blob/master/interview/tcp协议图解.jpg)
