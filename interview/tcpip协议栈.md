@@ -101,7 +101,7 @@
 > 1. <strong>MAC地址长度和IP地址长度：</strong> 分别为6和4.
 > 2. <strong>OP：</strong>ARP请求（值为1）、ARP应答（值为2）。
 ## tcp协议
-![tcp协议图解](https://github.com/xiaowenxia/common-lib/blob/master/interview/tcp协议图解.jpg)
+![tcp协议图解](res/tcp协议图解.jpg)
 tcp三次握手：
 1. 客户端发送一个SYN段（同步序号）指明客户打算连接的服务器端口，以及初始化序号(ISN) 。
 2. 服务器发回包含服务器的初始序号的SYN报文段作为应答。同时，将确认序号(ACK)设置为客户的ISN加1以对客户的SYN 报文段进行确认。一个SYN将占用一个序号。
