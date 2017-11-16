@@ -199,3 +199,12 @@ i 节点是一个64字节长的表,表中包含了文件的相关信息,其中�
 3. Reboot     工作过程差不多跟halt一样﹐不过它是引发主机重启
 4. Poweroff   就是halt的软链接而已
 5. Init       所有进程的祖先﹐它的进程号始终为1﹐init 0为关机﹐init1为重启。
+### mount指令
+命令格式：
+```sh
+mount [-t vfstype] [-o options] device dir
+```
+挂载nfs
+```sh
+mount -t nfs 192.168.0.1:/tmp /mnt/nfs 
+```
