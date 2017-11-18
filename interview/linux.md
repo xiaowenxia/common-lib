@@ -1,3 +1,9 @@
+#目录
+* [关键命令说明](##命令)
+* [linux软件开发知识点](##linux软件开发知识点)
+* [linux驱动开发知识点](linux驱动开发知识点)
+
+
 ## linux进程间通讯方式
 1. 管道（Pipe）及有名管道（named pipe）
 2. 信号（Signal）
@@ -5,13 +11,7 @@
 4. 共享内存
 5. 信号量（semaphore）
 6. 套接口（Socket）
-## 经典排序算法
-1. 快速
-2. 希尔
-3. 冒泡
-4. 插入
-5. 堆
-6. 归并 
+
 ## 简单的makefile
 ```makefile
 CROSS_COMPILE=/opt/4.5.1/bin/arm-linux-
