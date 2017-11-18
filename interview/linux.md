@@ -403,6 +403,7 @@ init       1         root  10u      FIFO      0,15                  1309     /de
       <td></td>
    </tr>
 </table>
+
 参数列表
 ```sh
 lsof  filename      显示打开指定文件的所有进程
@@ -437,5 +438,4 @@ $ lsof -a -u xiaxiaowen -d txt
 $ lsof /media/xiaxiaowen/机械硬盘
 COMMAND  PID       USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
 zsh     8465 xiaxiaowen  cwd    DIR   8,17     8192    5 /media/xiaxiaowen/机械硬盘
-
 ```
