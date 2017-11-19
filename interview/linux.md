@@ -1,11 +1,11 @@
-#目录
+# 目录
 * [关键命令说明](##关键命令说明)
 * [linux软件开发知识点](##linux软件开发知识点)
 * [linux驱动开发知识点](##linux驱动开发知识点)
 * [makefile](##makefile)
 * [shell](##shell)
 
-##关键命令说明
+## 关键命令说明
 * [系统关机命令](###系统关机命令)
 * [linux查看文本的指令](###linux查看文本的指令)
 * [mount](###mount指令)
@@ -15,7 +15,7 @@
 * [lsusb](###lsusb)
 * [lsof](###lsof)
 
-###系统关机命令
+### 系统关机命令
 |指令|说明|
 |:-:|----|
 |shutdown | 命令安全地将系统关机。|
@@ -24,7 +24,7 @@
 |poweroff | 就是halt的软链接而已|
 |init     | 所有进程的祖先﹐它的进程号始终为1﹐init 0为关机﹐init1为重启。|
 
-###linux查看文本的指令
+### linux查看文本的指令
 <table style="text-align:center">
    <tr>
       <td>cat</td>
@@ -43,7 +43,7 @@
 > <strong>tail</strong>： 只显示最后几行 tail -f 可以实时显示log文件的更新
 > <strong>nl</strong>： 类似于cat -n，显示时输出行号
 
-###mount
+### mount
 命令格式：
 ```sh
 mount [-t vfstype] [-o options] device dir
@@ -52,12 +52,12 @@ mount [-t vfstype] [-o options] device dir
 ```sh
 mount -t nfs 192.168.0.1:/tmp /mnt/nfs 
 ```
-###dmesg
+### dmesg
 ```sh
 cat /var/log/messages
 ```
 
-###grep
+### grep
 选项
 ```sh
 -c：只输出匹配行的计数。
@@ -83,7 +83,7 @@ grep -inE "test|zephyr" d*
 #包含test和zephyr 不区分大小写 显示行号 扩展正则表达式
 grep -in "test" d* | grep 'zephyr'
 ```
-###find
+### find
 用法
 ```sh
 find [-path ..] [expression]
@@ -121,7 +121,7 @@ find -name 'debug*' -a -name '*.rst'
 #找出文件大小大于10000块的文件，并复制到当前目录
 find -size +100000 -exec cp {} . \;
 ```
-###lsusb
+### lsusb
 显示系统中以及连接到系统的USB总线信息的工具。
 ```sh
 $ lsusb
@@ -254,7 +254,7 @@ COMMAND  PID       USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
 zsh     8465 xiaxiaowen  cwd    DIR   8,17     8192    5 /media/xiaxiaowen/机械硬盘
 ```
 
-##linux软件开发知识点
+## linux软件开发知识点
 * [linux进程间通讯方式](###linux进程间通讯方式)
 * [内存申请函数](###内存申请函数)
 * [gcc编译过程](###gcc编译过程)
@@ -271,7 +271,7 @@ zsh     8465 xiaxiaowen  cwd    DIR   8,17     8192    5 /media/xiaxiaowen/机�
 * [/proc目录说明](###/proc目录说明)
 * [fopen参数说明](###fopen参数说明)
 
-###linux进程间通讯方式
+### linux进程间通讯方式
 1. 管道（Pipe）及有名管道（named pipe）
 2. 信号（Signal）
 3. 报文（Message）队列（消息队列）：
@@ -279,11 +279,11 @@ zsh     8465 xiaxiaowen  cwd    DIR   8,17     8192    5 /media/xiaxiaowen/机�
 5. 信号量（semaphore）
 6. 套接口（Socket）
 
-###内存申请函数
+### 内存申请函数
 1. calloc
 2. malloc
 3. realloc
-###gcc编译过程
+### gcc编译过程
 
 <table style="text-align:center">
    <tr>
@@ -308,7 +308,7 @@ zsh     8465 xiaxiaowen  cwd    DIR   8,17     8192    5 /media/xiaxiaowen/机�
    </tr>
 </table>
 
-###文件系统
+### 文件系统
 
 <table style="text-align:center">
    <tr>
@@ -322,8 +322,8 @@ zsh     8465 xiaxiaowen  cwd    DIR   8,17     8192    5 /media/xiaxiaowen/机�
    </tr>
 </table>
 
-###硬链接和软连接
-####硬链接
+### 硬链接和软连接
+#### 硬链接
 * 硬链接直接指向文件的i节点
 * 硬链接和原文件的i节点是一样的
 * 硬链接文件显示的大小是跟原文件是一样的
@@ -331,7 +331,7 @@ zsh     8465 xiaxiaowen  cwd    DIR   8,17     8192    5 /media/xiaxiaowen/机�
 ```sh
 ln file2 /home/xiaxiaowen/file2hard
 ```
-####软链接(符号链接)
+#### 软链接(符号链接)
 * 软链接则是建立了一个新文件
 * 这个文件指向链接的文件，i节点不一样
 * 可以链接目录
@@ -339,25 +339,25 @@ ln file2 /home/xiaxiaowen/file2hard
 ln -s file2 /home/xiaxiaowen/file2soft
 ```
 
-###linux内核子系统
+### linux内核子系统
 1. 进程管理
 2. 内存管理
 3. I/O管理
 4. 文件系统管理
 
-###进程几种状态
+### 进程几种状态
 1. 运行态
 2. 就绪态
 3. 阻塞态
 
-###文件系统组成
+### 文件系统组成
 1. <strong>超级块</strong>：存放文件系统本身的信息，比如记录了每个区域的大小，或未被使用的磁盘块的信息。（不同版本稍有差别）
 2. <strong>i-节点表</strong>：每个文件都有其属性，大小，最近修改时间等等，这些被存储在ino_t 的结构体中，所有的i-节点都有一样的大小，i-节点表就是这样一些节点的列表。（表中的每个i-节点都通过位置来标志，例如标志为2的i-节点位于文件系统i-节点表中的第3个位置 ）
 3. <strong>数据块</strong>：存放文件内容，因为块的大小一定，所以有时一个文件会分布在多个磁盘上。
 ### i 节点
 i 节点是一个64字节长的表,表中包含了文件的相关信息,其中有文件的大小、文件所有者、文件的存取许可方式以及文件的类型等重要信息.
 
-###linux文件类型
+### linux文件类型
 <table style="text-align:center">
    <tr>
       <td><strong>文件类型</strong></td>
@@ -381,7 +381,7 @@ i 节点是一个64字节长的表,表中包含了文件的相关信息,其中�
    </tr>
 </table>
 
-###linux常用的系统调用函数
+### linux常用的系统调用函数
 * [进程控制函数](####进程控制函数)
 * [文件操作函数](####文件操作函数)
 * [文件系统操作函数](####文件系统操作函数)
@@ -397,7 +397,7 @@ i 节点是一个64字节长的表,表中包含了文件的相关信息,其中�
 * [信号量相关函数](####信号量相关函数)
 * [共享内存相关函数](####共享内存相关函数)
 
-####进程控制函数
+#### 进程控制函数
 <table>
    <tr style="color:red">
       <td>fork</td>
@@ -553,7 +553,7 @@ i 节点是一个64字节长的表,表中包含了文件的相关信息,其中�
       </tr>
 </table>
 
-####文件操作函数
+#### 文件操作函数
 
 <table>
   <tr style="color:red">
@@ -638,7 +638,7 @@ i 节点是一个64字节长的表,表中包含了文件的相关信息,其中�
   </tr>
 </table>
 
-####文件系统操作函数
+#### 文件系统操作函数
 
 <table>
   <tr style="color:red">
@@ -763,7 +763,7 @@ i 节点是一个64字节长的表,表中包含了文件的相关信息,其中�
   </tr>
 </table>
 
-####系统控制函数
+#### 系统控制函数
 
 <table>
   <tr style="color:red">
@@ -904,7 +904,7 @@ i 节点是一个64字节长的表,表中包含了文件的相关信息,其中�
   </tr>
 </table>
 
-####内存管理函数
+#### 内存管理函数
 
 <table>
   <tr>
@@ -965,7 +965,7 @@ i 节点是一个64字节长的表,表中包含了文件的相关信息,其中�
   </tr>
 </table>
 
-####网络管理函数
+#### 网络管理函数
 
 <table>
   <tr style="color:red">
@@ -994,7 +994,7 @@ i 节点是一个64字节长的表,表中包含了文件的相关信息,其中�
   </tr>
 </table>
 
-####socket函数
+#### socket函数
 
 <table>
   <tr>
@@ -1079,7 +1079,7 @@ i 节点是一个64字节长的表,表中包含了文件的相关信息,其中�
   </tr>
 </table>
 
-####用户管理函数
+#### 用户管理函数
 
 <table>
   <tr>
@@ -1156,7 +1156,7 @@ i 节点是一个64字节长的表,表中包含了文件的相关信息,其中�
   </tr>
 </table>
 
-####进程间通信函数
+#### 进程间通信函数
 
 <table>
   <tr style="color:red">
@@ -1165,7 +1165,7 @@ i 节点是一个64字节长的表,表中包含了文件的相关信息,其中�
   </tr>
 </table>
 
-####信号相关函数
+#### 信号相关函数
 
 <table>
   <tr>
@@ -1222,7 +1222,7 @@ i 节点是一个64字节长的表,表中包含了文件的相关信息,其中�
   </tr>
 </table>
 
-####消息相关函数
+#### 消息相关函数
 
 <table style="color:red">
   <tr>
@@ -1243,7 +1243,7 @@ i 节点是一个64字节长的表,表中包含了文件的相关信息,其中�
   </tr>
 </table>
 
-####管道相关函数
+#### 管道相关函数
 
 <table style="color:red">
   <tr>
@@ -1252,7 +1252,7 @@ i 节点是一个64字节长的表,表中包含了文件的相关信息,其中�
   </tr>
 </table>
 
-####信号量相关函数
+#### 信号量相关函数
 
 <table style="color:red">
   <tr>
@@ -1269,7 +1269,7 @@ i 节点是一个64字节长的表,表中包含了文件的相关信息,其中�
   </tr>
 </table>
 
-####共享内存相关函数
+#### 共享内存相关函数
 
 <table style="color:red">
   <tr>
@@ -1290,7 +1290,7 @@ i 节点是一个64字节长的表,表中包含了文件的相关信息,其中�
   </tr>
 </table>
 
-###fork函数
+### fork函数
 fork是用来创建子进程的，这个函数的特别之处在于一次调用，两次返回，一次返回到父进程中，一次返回到子进程中，我们可以通过返回值来判断其返回点：
 ```c
 pid_t child = fork();
@@ -1302,21 +1302,21 @@ if( child < 0  ) {     //fork error.
     printf(" this run in parent process\n ");
 }
 ```
-###僵尸进程
+### 僵尸进程
 * [僵尸进程产生原因](####僵尸进程产生原因)
 * [僵尸进程解决办法](####僵尸进程解决办法)
 * [ps指令查看僵尸进程](####ps指令查看僵尸进程)
 
-####僵尸进程产生原因
+#### 僵尸进程产生原因
   一个进程使用fork创建子进程，如果子进程退出，而父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中。
 
-####僵尸进程解决办法
+#### 僵尸进程解决办法
 1. 通过信号机制
   子进程退出时向父进程发送SIGCHILD信号，父进程处理SIGCHILD信号。在信号处理函数中调用wait进行处理僵尸进程。
 2. fork两次
   父进程创建子进程A，子进程A再创建子进程B，然后子进程A退出，z这样子进程B就交给init进程处理了。init进程可以处理僵尸进程.
 
-####ps指令查看僵尸进程
+#### ps指令查看僵尸进程
 ```sh
 ps -A -ostat,pid,cmd |grep -iE '^z'
 ```
@@ -1324,7 +1324,7 @@ ps -A -ostat,pid,cmd |grep -iE '^z'
   -o 按照指定格式输出
   grep -iE 显示z开头的行，不区分大小写
 
-###常见文件说明
+### 常见文件说明
 /var/log/boot.log 系统引导日志
 /var/log/dmesg    系统核心启动日志
 /var/log/messages 核心系统日志
@@ -1336,7 +1336,7 @@ ps -A -ostat,pid,cmd |grep -iE '^z'
 /var/spool/clientmqueue
 /proc/interrupts
 /etc/fstab        Linux内核引导时,从文件/etc/fstab 中读取要加载的文件系统.
-###/proc目录说明
+### /proc目录说明
 ```sh
 proc文件系统是一个伪文件系统，它只存在内存当中。
 /proc/buddyinfo   每个内存区中的每个order有多少块可用，和内存碎片问题有关
@@ -1398,7 +1398,7 @@ proc文件系统是一个伪文件系统，它只存在内存当中。
 /proc/N/status    进程状态信息，比stat/statm更具可读性
 /proc/self        链接到当前正在运行的进程
 ```
-###fopen参数说明
+### fopen参数说明
 |参数  |说明|
 |:---:|---|
 | r   |以只读方式打开文件，该文件必须存在。|
@@ -1420,15 +1420,15 @@ proc文件系统是一个伪文件系统，它只存在内存当中。
 
 
 
-##linux驱动开发知识点
+## linux驱动开发知识点
 
 ### insmod rmmod 加载 卸载模块
-###i.max6UL
-####系统框图
+### i.max6UL
+#### 系统框图
 ![i.max6ul系统框图](./res/IMX6UL-BD.png)
 
-##makefile
-###简单的makefile
+## makefile
+### 简单的makefile
 ```makefile
 CROSS_COMPILE=/opt/4.5.1/bin/arm-linux-
 

@@ -5,7 +5,7 @@
 * [freertos 源码详解](./freertos-inside.md)
 * [tcpip协议栈知识点](./tcpip协议栈.md)
 
-#要点
+# 要点
 1. c基础知识
 2. 数据结构（链表 hash表 排序算法 设计模式等）
 3. 外设（串口 网口 i2s i2c spi sdio等）
