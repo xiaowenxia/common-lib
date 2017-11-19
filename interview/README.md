@@ -14,3 +14,5 @@
 6. tcpip协议栈（tcpip模型 分层结构 ip tcp udp icmp igmp tftp http ftp等协议）
 7. linux 多线程 多进程通讯 
 8. bash命令 shell makefile python github go javascript
+
+linux 启动过程

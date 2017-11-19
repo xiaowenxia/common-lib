@@ -280,6 +280,7 @@ zsh     8465 xiaxiaowen  cwd    DIR   8,17     8192    5 /media/xiaxiaowen/机�
 ## linux软件开发知识点
 * [linux进程间通讯方式](#linux进程间通讯方式)
 * [内存申请函数](#内存申请函数)
+* [linux内存分配说明](#linux内存分配说明)
 * [gcc编译过程](#gcc编译过程)
 * [文件系统](#文件系统)
 * [硬链接和软连接](#硬链接和软连接)
@@ -306,6 +307,14 @@ zsh     8465 xiaxiaowen  cwd    DIR   8,17     8192    5 /media/xiaxiaowen/机�
 1. calloc
 2. malloc
 3. realloc
+### linux内存分配说明
+|内存|存放数据|说明
+|:---:|---|---|
+|静态存储区|静态数据、全局数据、常量|在程序编译的时候就已经分配好|
+|栈区     |局部变量、函数参数|栈内存分配运算内置于处理器的指令集中，效率很高，但是分配的内存容量有限|
+|堆区     |malloc申请的内存|动态内存分配,需要手动释放|
+|代码区    |代码|存放函数体的二进制代码|
+|文字常量区|常量字符串|程序结束后由系统释放|
 ### gcc编译过程
 
 <table style="text-align:center">
@@ -1449,7 +1458,8 @@ proc文件系统是一个伪文件系统，它只存在内存当中。
 ### i.max6UL
 #### 系统框图
 ![i.max6ul系统框图](./res/IMX6UL-BD.png)
-
+### linux启动过程
+系统上电--->bootrom--->uboot--->kernel加载--->init--->应用程序
 ## makefile
 ### 简单的makefile
 ```makefile
