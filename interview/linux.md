@@ -1,9 +1,9 @@
 # 目录
-* [关键命令说明](##关键命令说明)
-* [linux软件开发知识点](##linux软件开发知识点)
-* [linux驱动开发知识点](##linux驱动开发知识点)
-* [makefile](##makefile)
-* [shell](##shell)
+* [关键命令说明](#关键命令说明)
+* [linux软件开发知识点](#linux软件开发知识点)
+* [linux驱动开发知识点](#linux驱动开发知识点)
+* [makefile](#makefile)
+* [shell](#shell)d
 
 ## 关键命令说明
 * [系统关机命令](###系统关机命令)
